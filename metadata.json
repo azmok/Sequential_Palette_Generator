@@ -1,0 +1,6 @@
+{
+  "name": "Sequential Palette Generator",
+  "description": "Professional 100-preset dark & light sequential color palette generator with Delta-E contrast advisory and code export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
