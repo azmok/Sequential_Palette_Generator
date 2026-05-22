@@ -77,29 +77,29 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
   };
 
   return (
-    <section className="mt-12 bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden" id="export-section">
+    <section className="mt-12 bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden" id="export-section">
       {/* Export Header */}
-      <div className="border-b border-gray-100 px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gray-50/50">
+      <div className="border-b border-gray-100 dark:border-slate-800/80 px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gray-50/50 dark:bg-slate-950/20">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+          <div className="p-2 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-lg">
             <FileCode className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-sm font-bold text-gray-900">コードエクスポート</h2>
-            <p className="text-xs text-gray-400">プロジェクトに合わせてフォーマットを選択し、コピーして直接プロジェクトにご利用ください。</p>
+            <h2 className="text-sm font-bold text-gray-900 dark:text-slate-100">コードエクスポート</h2>
+            <p className="text-xs text-gray-400 dark:text-slate-500">プロジェクトに合わせてフォーマットを選択し、コピーして直接プロジェクトにご利用ください。</p>
           </div>
         </div>
 
         {/* Tab triggers */}
-        <div className="flex bg-gray-100 p-1 rounded-xl border border-gray-200/50 self-start sm:self-auto">
+        <div className="flex bg-gray-100 dark:bg-slate-950 p-1 rounded-xl border border-gray-200/50 dark:border-slate-800/50 self-start sm:self-auto">
           {(['css', 'json', 'tailwind'] as TabType[]).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all capitalize cursor-pointer ${
                 activeTab === tab
-                  ? 'bg-white text-gray-900 shadow-xs border border-black/5'
-                  : 'text-gray-500 hover:text-gray-900'
+                  ? 'bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100 shadow-xs border border-black/5 dark:border-white/5'
+                  : 'text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200'
               }`}
               id={`tab-export-${tab}`}
             >
@@ -113,7 +113,7 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
       <div className="p-6 relative">
         <button
           onClick={handleCopyCode}
-          className="absolute top-10 right-10 bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer z-10"
+          className="absolute top-10 right-10 bg-gray-900 hover:bg-gray-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer z-10 border border-transparent dark:border-slate-700/50"
           id="btn-copy-export-code"
         >
           {copied ? (
@@ -129,7 +129,7 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
           )}
         </button>
 
-        <pre className="bg-gray-950 text-gray-100 rounded-xl p-6 overflow-x-auto text-xs font-mono leading-relaxed max-h-[380px] shadow-inner select-all border border-gray-900">
+        <pre className="bg-gray-950 dark:bg-slate-950 text-gray-100 rounded-xl p-6 overflow-x-auto text-xs font-mono leading-relaxed max-h-[380px] shadow-inner select-all border border-gray-900 dark:border-slate-900">
           <code id="export-code-display">{codeOutput}</code>
         </pre>
       </div>
