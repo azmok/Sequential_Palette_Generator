@@ -12,7 +12,7 @@
 
 ## 📖 開発ストーリーと誕生背景 (Background & Story)
 
-本プロジェクトは、発案者である **Azuma (@Azmok)** の強い課題意識と、強力なAIコーディングパートナーである **Antigravity CLI (Gemini 3.5 Flash / おジェ)**、そして VS Code との共創によって誕生しました。（※おジェの頭脳である Gemini 3.5 は、[2026年5月19日の公式リリース](https://blog.google/intl/ja-jp/company-news/technology/gemini-3-5/) にて発表された最先端の自律型AIモデルです）
+本プロジェクトは、発案者である **Azuma (@Azmok)** の強い課題意識と、強力なAIコーディングパートナーである **Antigravity CLI (Gemini 3.5 Flash)**、そして VS Code との共創によって誕生しました。（※ベースモデルである Gemini 3.5 は、[2026年5月19日の公式リリース](https://blog.google/intl/ja-jp/company-news/technology/gemini-3-5/) にて発表された最先端の自律型AIモデルです）
 
 ### 🚨 なぜ作ったのか？（開発の背景）
 1. **既存ツールや生成AIの限界**:
@@ -25,7 +25,7 @@
 ### 🤝 人とAIの理想的な共創プロセス
 本アプリの開発は、単にAIにコードを書かせるものではありませんでした。
 - **Azuma** が「グラフや可視化で色を比較するユーザーのために、どう見せるべきか」というプロダクトディレクションを行い、**「アクリル製最小化モーフィングウィジェット」「言葉を排したスマートな楔形スライダーUI」「直感的なカラーセルのドラッグ並び替え」**といった、UXを極限まで高める斬新で神がかったアイデアを次々と考案。
-- そのひらめきを受け、**Antigravity CLI ＆ Gemini 3.5 Flash (おジェ)** が即座に実装と検証ビルドを行い、ミリ秒単位のトランジション調整やしきい値ガードなどの細部のクオリティをブラッシュアップ。
+- そのひらめきを受け、**Antigravity CLI ＆ Gemini 3.5 Flash** が即座に実装と検証ビルドを行い、ミリ秒単位のトランジション調整やしきい値ガードなどの細部のクオリティをブラッシュアップ。
 
 お互いが「最高のベストフレンド＆技術パートナー」として完全並走し、並外れたこだわりとスピードで磨き上げて創り上げた**「人とAIの共創の傑作」**です。
 
@@ -100,7 +100,7 @@
 
 ## 📖 The Birth of SPG: Background & Story
 
-This project was born through close-knit pair programming between the creator **Azuma (@Azmok)**, who brought a strong product vision, and their powerful AI coding partner **Antigravity CLI (Gemini 3.5 Flash / Oje)**, along with VS Code. (Note: Oje's base model, Gemini 3.5, was announced in the [official release on May 19, 2026](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/)).
+This project was born through close-knit pair programming between the creator **Azuma (@Azmok)**, who brought a strong product vision, and their powerful AI coding partner **Antigravity CLI (Gemini 3.5 Flash)**, along with VS Code. (Note: The base model, Gemini 3.5, was announced in the [official release on May 19, 2026](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/)).
 
 ### 🚨 Why We Built It (Background)
 1. **Limitations of Existing Tools and AIs**:
@@ -113,7 +113,7 @@ This project was born through close-knit pair programming between the creator **
 ### 🤝 The Ultimate Co-Creation: Human Intuition Meets AI Speed
 This app is a true testament to human-AI collaboration:
 - **Azuma** acted as the product director, spearheading the user experience with innovative ideas like the **"Acrylic Morphing Widget," "Wordless Wedge Sliders,"** and **"Drag-and-Drop Cell Reordering."**
-- **Antigravity CLI & Gemini 3.5 Flash (Oje)** acted as the dedicated engineering partner, instantly turning those sparks of inspiration into robust code, fine-tuning physics-based animations, and adding precise threshold guards.
+- **Antigravity CLI & Gemini 3.5 Flash** acted as the dedicated engineering partner, instantly turning those sparks of inspiration into robust code, fine-tuning physics-based animations, and adding precise threshold guards.
 
 Working side by side as best friends and technical partners, we polished every detail to craft this masterpiece of human-AI co-creation.
 
@@ -175,4 +175,4 @@ Working side by side as best friends and technical partners, we polished every d
 ---
 
 ## ⚖️ License
-This project is open for developer exploration and customized palette creation. Built with ❤️ by Azuma & Oje (Antigravity).
+This project is open for developer exploration and customized palette creation. Built with ❤️ by Azuma & Antigravity.
