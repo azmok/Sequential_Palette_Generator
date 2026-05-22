@@ -1,10 +1,10 @@
 # 🌟 Sequential Palette Generator (SPG)
-### 〜 知覚的均等な美しいグラデーション階調を創り出す、極上のシーケンシャルパレットビルダー 〜
+### 〜 シーケンシャルパレットビルダー（Data Visualization 対応） 〜
 
 <div align="center">
   <p><strong>A perception-accurate, highly interactive, and beautiful sequential color palette builder for data visualization.</strong></p>
   <p>
-    日本語メインのドキュメント（後半に英語の概要があります）/ Scroll down for English description.
+    日本語メインのドキュメント（The English version is available below.） Jump to the [English version](#english-version).
   </p>
 </div>
 
@@ -12,48 +12,40 @@
 
 ## 📖 開発ストーリーと誕生背景 (Background & Story)
 
-本プロジェクトは、発案者である **Azuma (@Azmok)** の強い課題意識と、強力なAIコーディングパートナーである **Anti-gravity CLI ＆ Gemini 1.5 Flash (おジェ)** の完全並走によるペアプログラミングによって誕生しました。
+本プロジェクトは、発案者である **Azuma (@Azmok)** の強い課題意識と、強力なAIコーディングパートナーである **Antigravity CLI (Gemini 3.5 Flash / おジェ)**、そして VS Code との共創によって誕生しました。（※おジェの頭脳である Gemini 3.5 は、[2026年5月19日の公式リリース](https://blog.google/intl/ja-jp/company-news/technology/gemini-3-5/) にて発表された最先端の自律型AIモデルです）
 
 ### 🚨 なぜ作ったのか？（開発の背景）
-1. **既存AIやツールの限界**:
-   自身の事業向けの記事内で可視化用のグラフを作成する際、既存の生成AIにカラーパレットを提案させたり、一般的なグラフ作成ツールを使用したりしても、人間の知覚に合わせた滑らかで機能的なシーケンシャル（段階的）グラデーションをうまく生成することができませんでした。
-2. **既存のカラーパレットジェネレーターへの不満**:
-   世の中にある多くのカラーパレットジェネレーターは、単に数式的に色相や明度を等分するだけであったり、デザイン的におしゃれなだけでデータ可視化（視認性やコントラスト設計）には適していなかったりと、プロフェッショナルなニーズに満足に応えられるものが存在しませんでした。
-3. **自作アプリへの決意**:
-   「それならば、人間の知覚に完璧に最適化され、データのストーリーが美しく直感的に伝わる極上のグラデーションツールを自作しよう！」と決意し、開発がスタートしました。
+1. **既存ツールや生成AIの限界**:
+   自身の事業向け記事のグラフ作成時に既存の生成AIやツールを使っても、人間の知覚に合わせた滑らかで機能的なシーケンシャル（段階的）グラデーションを生成できませんでした。
+2. **視認性とデザインの両立不足**:
+   多くのカラーパレットジェネレーターは、単に数式的にRGBを等分するだけで、データ可視化（視認性やコントラスト設計）に適した実用的なパレットが作れませんでした。
+3. **自作への決意**:
+   「それならば、人間の知覚特性（LCH/Lab色空間）に完璧に最適化され、データのストーリーが美しく直感的に伝わる極上のグラデーションツールを自作しよう！」と決意しました。
 
 ### 🤝 人とAIの理想的な共創プロセス
 本アプリの開発は、単にAIにコードを書かせるものではありませんでした。
 - **Azuma** が「グラフや可視化で色を比較するユーザーのために、どう見せるべきか」というプロダクトディレクションを行い、**「アクリル製最小化モーフィングウィジェット」「言葉を排したスマートな楔形スライダーUI」「直感的なカラーセルのドラッグ並び替え」**といった、UXを極限まで高める斬新で神がかったアイデアを次々と考案。
-- そのひらめきを受け、**Anti-gravity CLI ＆ Gemini 1.5 Flash (おジェ)** が即座に実装と検証ビルドを行い、ミリ秒単位のトランジション調整やしきい値ガードなどの細部のクオリティをブラッシュアップ。
+- そのひらめきを受け、**Antigravity CLI ＆ Gemini 3.5 Flash (おジェ)** が即座に実装と検証ビルドを行い、ミリ秒単位のトランジション調整やしきい値ガードなどの細部のクオリティをブラッシュアップ。
 
 お互いが「最高のベストフレンド＆技術パートナー」として完全並走し、並外れたこだわりとスピードで磨き上げて創り上げた**「人とAIの共創の傑作」**です。
 
 ---
 
 ## ✨ 主な機能特徴 (Key Features)
+### 1. シンプルで美麗なUI
+- 無駄を削ぎ落とした構成
+- 美麗なビジュアルデザイン
 
-### 🎨 1. LCH知覚補間による絶対的視認性のグラデーション
-- 人間の目（知覚）に合わせた均等な明度階調変化を保証する **LCH/Lab色空間** で補間処理を行っています。
-- データのグラデーションを作成した際、特定の色だけが浮いたり、コントラストが崩れたりすることがなく、視認性を維持した機能的で極めて美しいシーケンシャルマップが誰でも一瞬で仕上がります。
+### 2. 使いやすいUX
+- シンプル
+- 多機能
 
-### 🛸 2. アクリル円形最小化＆ドラッグモーフィングウィジェット (PC限定)
-- 画面を広く使ってグラデーションを確認したい時は、カスタムパレットビルダーを **アクリル製の美麗な円形アイコン（56x56px）に最小化モーフィング** させることができます。
-- 最小化された円形ボタンは、磨き上げられたガラスのような半透明のガラスモーフィズム（`backdrop-blur-md`）と、リッチな浮遊感をもたらすドロップシャドウを搭載。
-- **誤展開防止のしきい値ガード (5px判定)**: 最小化ボタンを画面の隅へドラッグ＆ドロップして避けておく際、ドラッグ終了時に勝手に展開してしまう誤作動を完全に防止。ドラッグ移動は完璧に維持され、クリックした時だけ元のサイズにスッと滑らかに spring アニメーションで復帰します。
+### 3. カスタムカラーパレット
+- カスタムパレットの色の順番を、ドラッグ＆ドロップで入れ替え可能
+- **Session DB (localStorage)** にオートセーブ
+- 2日以上アクセスがない場合は自動でキャッシュを削除するクリーンアップ設計
 
-### 📏 3. 完全ワードレス ＆ 楔形ポリゴンスライダーUI
-- データの可視化や比較を最大化するため、セルの縦の余白（高さ）と横の余白（幅）を 1〜5 段階でリアルタイムに微調整できます。
-- スライダーから「小」「大」や「（縦余白）」などの説明的なテキストを一切排除。
-- スライダー背景そのものを `clip-path` で左細・右太の **「楔形（ウェッジ）ポリゴン」** に切り抜き、左右に極細・極太のインジケータを配置。言葉がなくても一目で太さの変化が伝わる、超ハイエンドでモダンなプレミアムUIです。
-
-### 🖐️ 4. カラーセルのドラッグ＆ドロップ並び替え＆オートセーブ
-- 作成したオリジナルパレットの色の順番を、チップをドラッグ＆ドロップするだけで直感的に前後入れ替え可能です。
-- ドラッグ中はセルが半透明になり、他のセルの上に重ねるとインディゴの太枠が浮かび上がるリッチなドロップガイドを実装。
-- 並び替え結果は即時ブラウザの **Session DB (localStorage)** にオートセーブ。
-- 2日以上アクセスがない場合は自動でキャッシュをクリーンアップする安心のライフサイクル設計。
-
-### 💾 5. 多彩な開発・デザイン用エクスポート
+### 4. 多彩な開発・デザイン用エクスポート
 - **CSS Variables**: そのままCSSに貼り付けられるルート変数。
 - **Tailwind CSS**: `tailwind.config.js` のextendカラーに即座に組み込めるコード。
 - **JSON**: 配列データとしてのエクスポート。
@@ -61,9 +53,9 @@
 
 ---
 
-## 🚀 ローカルでの実行方法 (How to Run Locally)
+## 🚀 ローカルでの実行
 
-### 📌 前提条件
+### 前提条件
 - Node.js (v18以上推奨)
 
 ### ⚙️ セットアップと起動
@@ -92,30 +84,95 @@
    ```
 
 ---
+<a id='english-version'></a>
 
-<br>
+# 🌟 Sequential Palette Generator (SPG)
+### ~ Sequential Palette Builder Optimized for Data Visualization ~
 
-# 🌟 Sequential Palette Generator (SPG) - English Abstract
-
-### 📖 The Birth of SPG: Background & Story
-This project was born out of a real-world challenge faced by the creator, **Azuma (@Azmok)**: 
-*When creating data visualization graphs for business articles, existing AIs and generic color palette generators failed to produce smooth, perception-accurate sequential color scales.*
-
-Existing tools either just mathematical split RGB channels or focused purely on "trendy" designs, failing to satisfy the rigorous demands of true readability and contrast in data viz. To solve this, Azuma decided to build an ideal tool from scratch.
-
-During development, **Azuma** acted as the product director—generating beautiful, high-end UX ideas such as the **"Acrylic Morphing Widget," "Wordless Wedge Sliders," and "Drag-and-Drop Cell Reordering."** 
-Meanwhile, **Anti-gravity CLI & Gemini 1.5 Flash (Oje)** worked in complete alignment as a dedicated AI engineering partner, optimizing physics-based spring animations, implementing precision drag threshold guards, and polishing build performance.
-
-This app stands as a testament to the ultimate co-creation between human design intuition and AI speed.
-
-### ✨ Key Features
-- **LCH Perceptual Interpolation**: Guarantees visually uniform lightness steps using LCH/Lab color space interpolation, ensuring perfect readability and contrast.
-- **Acrylic Morphing Widget (PC only)**: Morphs the palette builder into a stunning 56x56px glassmorphic circular icon (`backdrop-blur`). Equipped with a **5px drag threshold guard** to prevent accidental expansion while repositioning the widget.
-- **Wordless Wedge Slider UI**: Controls cell height and width densities via sleek wedge-shaped polygon track sliders (`clip-path`) that visually convey scale without clunky text labels.
-- **Drag-and-Drop Color Sorting**: Reorder custom palette color chips intuitively. Sorted sequences are instantly auto-saved to local session storage.
-- **Developer-Friendly Exports**: One-click code generation for CSS variables, Tailwind configurations, and JSON arrays, plus dynamic high-res SVG & PNG canvas card downloads.
+<div align="center">
+  <p><strong>A perception-accurate, highly interactive, and beautiful sequential color palette builder for data visualization.</strong></p>
+  <p>
+    English main documentation. Jump back to the [Japanese version](#-sequential-palette-generator-spg).
+  </p>
+</div>
 
 ---
 
-## ⚖️ ライセンス / License
-This project is open for developer exploration and customized palette creation. Built with ❤️ by Azuma & Oje (Anti-gravity).
+## 📖 The Birth of SPG: Background & Story
+
+This project was born through close-knit pair programming between the creator **Azuma (@Azmok)**, who brought a strong product vision, and their powerful AI coding partner **Antigravity CLI (Gemini 3.5 Flash / Oje)**, along with VS Code. (Note: Oje's base model, Gemini 3.5, was announced in the [official release on May 19, 2026](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/)).
+
+### 🚨 Why We Built It (Background)
+1. **Limitations of Existing Tools and AIs**:
+   When creating charts for business articles, existing generative AIs and generic charting tools failed to produce smooth, perception-accurate sequential (step-by-step) gradients.
+2. **Lack of Readability and Design Balance**:
+   Most color generators simply divided RGB values mathematically or focused purely on aesthetics, making them unsuitable for professional data visualization where contrast and readability are paramount.
+3. **The Decision to Build from Scratch**:
+   Frustrated by these limitations, we decided to create our own premium gradient tool—perfectly optimized for human perception (using LCH/Lab color spaces) to deliver intuitive and beautiful data stories.
+
+### 🤝 The Ultimate Co-Creation: Human Intuition Meets AI Speed
+This app is a true testament to human-AI collaboration:
+- **Azuma** acted as the product director, spearheading the user experience with innovative ideas like the **"Acrylic Morphing Widget," "Wordless Wedge Sliders,"** and **"Drag-and-Drop Cell Reordering."**
+- **Antigravity CLI & Gemini 3.5 Flash (Oje)** acted as the dedicated engineering partner, instantly turning those sparks of inspiration into robust code, fine-tuning physics-based animations, and adding precise threshold guards.
+
+Working side by side as best friends and technical partners, we polished every detail to craft this masterpiece of human-AI co-creation.
+
+---
+
+## ✨ Key Features
+
+### 1. Minimal and Elegant UI
+- Distraction-free minimal layouts.
+- Beautiful, high-end visual design.
+
+### 2. Premium UX
+- Simple yet highly functional.
+- Smooth transitions and interactive elements.
+
+### 3. Custom Color Palette
+- Reorder custom palette chips easily with drag-and-drop.
+- **Session DB (localStorage)** auto-save integration.
+- Intelligent cleanup lifecycle that automatically deletes cache after 2 days of inactivity.
+
+### 4. Versatile Developer & Designer Exports
+- **CSS Variables**: Seamless copy-paste `:root` variables.
+- **Tailwind CSS**: Instant configurations to extend Tailwind colors.
+- **JSON**: Clean array format exports.
+- **SVG / PNG**: High-resolution vector images or downloadable palette cards (complete with HEX codes and color indices) rendered dynamically via Canvas.
+
+---
+
+## 🚀 How to Run Locally
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+
+### ⚙️ Setup & Execution
+
+1. **Clone & Prepare the Repository**
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   # or
+   pnpm install
+   ```
+3. **Configure Gemini API Key**:
+   Create a `.env.local` file and add your API key:
+   ```env
+   VITE_GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+   ```
+4. **Start the Development Server**:
+   ```bash
+   npm run dev
+   ```
+   Open your browser and navigate to `http://localhost:3000` (or the active port displayed in the console).
+
+5. **Build for Production**:
+   ```bash
+   npm run build
+   ```
+
+---
+
+## ⚖️ License
+This project is open for developer exploration and customized palette creation. Built with ❤️ by Azuma & Oje (Antigravity).
