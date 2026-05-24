@@ -46,6 +46,59 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
   const [isDropAfter, setIsDropAfter] = useState<boolean>(false);
   const isDraggingRef = useRef<boolean>(false);
 
+  // Touch Drag & Drop reorder tracking for Mobile/iPad
+  const handleTouchStart = (_e: React.TouchEvent, idx: number) => {
+    isDraggingRef.current = true;
+    setDraggedIndex(idx);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (draggedIndex === null) return;
+    const touch = e.touches[0];
+    const clientX = touch.clientX;
+    const clientY = touch.clientY;
+
+    const element = document.elementFromPoint(clientX, clientY);
+    if (!element) return;
+
+    const chipElement = element.closest('[data-chip-index]');
+    if (chipElement) {
+      const overIdx = parseInt(chipElement.getAttribute('data-chip-index') || '');
+      if (!isNaN(overIdx)) {
+        const rect = chipElement.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const after = x > rect.width / 2;
+
+        if (dragOverIndex !== overIdx || isDropAfter !== after) {
+          setDragOverIndex(overIdx);
+          setIsDropAfter(after);
+        }
+      }
+    } else {
+      setDragOverIndex(null);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    isDraggingRef.current = false;
+    if (draggedIndex !== null && dragOverIndex !== null) {
+      let targetIdx = dragOverIndex;
+      if (isDropAfter) {
+        targetIdx = draggedIndex < dragOverIndex ? dragOverIndex : dragOverIndex + 1;
+      } else {
+        targetIdx = draggedIndex < dragOverIndex ? dragOverIndex - 1 : dragOverIndex;
+      }
+      targetIdx = Math.max(0, Math.min(selectedCells.length - 1, targetIdx));
+
+      if (draggedIndex !== targetIdx) {
+        onReorderCells(draggedIndex, targetIdx);
+      }
+    }
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+    setIsDropAfter(false);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 1024);
@@ -229,6 +282,7 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
 
   return (
     <motion.div
+      key={isDesktop ? 'desktop' : 'mobile'}
       drag={isDesktop}
       dragMomentum={false}
       dragElastic={0.05}
@@ -341,7 +395,7 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
             </div>
           </div>
 
-          {/* Selected Colors wrap-preview strip */}
+    // Selected Colors wrap-preview strip
           <div 
             className="flex flex-wrap items-center gap-3 pt-4 pb-3 px-2"
             onMouseDown={(e) => e.stopPropagation()} // チップ操作でカードがドラッグするのを防止
@@ -357,6 +411,7 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
                 return (
                   <motion.div
                     key={cell.key}
+                    data-chip-index={idx}
                     layout
                     initial={{ opacity: 0, scale: 0.8, x: -10 }}
                     animate={{ 
@@ -367,8 +422,11 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
                     exit={{ opacity: 0, scale: 0.8, y: 15 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                     style={{ backgroundColor: cell.color }}
-                    className={`w-12 h-16 rounded-xl flex flex-col justify-between p-2 shadow-xs shrink-0 relative group hover:scale-105 transition-all duration-100 cursor-grab active:cursor-grabbing border border-black/5`}
+                    className={`w-12 h-16 rounded-xl flex flex-col justify-between p-2 shadow-xs shrink-0 relative group hover:scale-105 transition-all duration-100 cursor-grab active:cursor-grabbing border border-black/5 touch-none`}
                     draggable={true}
+                    onTouchStart={(e) => handleTouchStart(e, idx)}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
                     onDragStart={(e) => {
                       setDraggedIndex(idx);
                       e.dataTransfer.effectAllowed = 'move';
