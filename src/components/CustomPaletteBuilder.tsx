@@ -197,12 +197,21 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
     const chipHeight = 130;
     const padding = 40;
     
-    canvas.width = colorsCount * chipWidth + padding * 2;
-    canvas.height = 320;
+    // 3x High-Resolution Resolution Scaling Multiplier
+    const scale = 3;
+    
+    const logicalWidth = colorsCount * chipWidth + padding * 2;
+    const logicalHeight = 320;
+
+    canvas.width = logicalWidth * scale;
+    canvas.height = logicalHeight * scale;
+
+    // Apply the scaling factor to render shapes and text elements crisply
+    ctx.scale(scale, scale);
 
     // Background fill (crisp white)
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, logicalWidth, logicalHeight);
 
     // Header Text
     ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
@@ -394,8 +403,7 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
               </button>
             </div>
           </div>
-
-    // Selected Colors wrap-preview strip
+          
           <div 
             className="flex flex-wrap items-center gap-3 pt-4 pb-3 px-2"
             onMouseDown={(e) => e.stopPropagation()} // チップ操作でカードがドラッグするのを防止

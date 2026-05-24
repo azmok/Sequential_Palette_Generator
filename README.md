@@ -3,6 +3,7 @@
 
 <div align="center">
   <p><strong>A perception-accurate, highly interactive, and beautiful sequential color palette builder for data visualization.</strong></p>
+  <p><strong>Created by <a href="https://noe-shiftica.com/">Noe Shiftica</a></strong></p>
   <p>
     日本語メインのドキュメント（The English version is available below.） Jump to the [English version](#english-version).
   </p>
@@ -93,6 +94,7 @@
 
 <div align="center">
   <p><strong>A perception-accurate, highly interactive, and beautiful sequential color palette builder for data visualization.</strong></p>
+  <p><strong>Created by <a href="https://noe-shiftica.com/">Noe Shiftica</a></strong></p>
   <p>
     English main documentation. Jump back to the [Japanese version](#-sequential-palette-generator-spg).
   </p>
@@ -177,4 +179,4 @@ Working side by side as best friends and technical partners, we polished every d
 ---
 
 ## ⚖️ License
-This project is open for developer exploration and customized palette creation. Built with ❤️ by Azuma & Antigravity.
+This project is open for developer exploration and customized palette creation. Created by [Noe Shiftica](https://noe-shiftica.com/). Built with ❤️ by Azuma & Antigravity.

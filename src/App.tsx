@@ -369,9 +369,12 @@ export default function App() {
       />
 
       {/* Mini Help footer to assist developers */}
-      <footer className="mt-16 text-center text-xs text-slate-400 dark:text-slate-500 max-w-2xl mx-auto px-4 leading-relaxed">
+      <footer className="mt-16 text-center text-xs text-slate-400 dark:text-slate-500 max-w-2xl mx-auto px-4 leading-relaxed pb-8">
         <p>LCH補間は、人間の知覚に合わせた均等な明度階調変化を保証する色空間(Lab/Lch)で処理されています。</p>
         <p className="mt-1">これにより、視認性を維持した美しく機能的なシーケンシャルマップが仕上がります。</p>
+        <p className="mt-4 text-[10px] text-slate-400/80 dark:text-slate-500/80 font-medium">
+          Created by <a href="https://noe-shiftica.com/" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 underline font-semibold transition-colors">Noe Shiftica</a>
+        </p>
       </footer>
     </div>
   );
