@@ -213,7 +213,7 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
   const containerVariants = {
     expanded: {
       width: 380,
-      height: 520,
+      height: 'auto',
       borderRadius: 24,
       padding: 24,
       transition: { type: 'spring', stiffness: 350, damping: 28 }
