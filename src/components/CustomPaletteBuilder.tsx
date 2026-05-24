@@ -43,6 +43,7 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
   // Drag & Drop reorder tracking
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+  const [isDropAfter, setIsDropAfter] = useState<boolean>(false);
   const isDraggingRef = useRef<boolean>(false);
 
   useEffect(() => {
@@ -366,9 +367,7 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
                     exit={{ opacity: 0, scale: 0.8, y: 15 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                     style={{ backgroundColor: cell.color }}
-                    className={`w-12 h-16 rounded-xl flex flex-col justify-between p-2 shadow-xs shrink-0 relative group hover:scale-105 transition-all duration-100 cursor-grab active:cursor-grabbing border border-black/5 ${
-                      isCurrentlyDragOver && !isCurrentlyDragged ? 'ring-4 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' : ''
-                    }`}
+                    className={`w-12 h-16 rounded-xl flex flex-col justify-between p-2 shadow-xs shrink-0 relative group hover:scale-105 transition-all duration-100 cursor-grab active:cursor-grabbing border border-black/5`}
                     draggable={true}
                     onDragStart={(e) => {
                       setDraggedIndex(idx);
@@ -377,22 +376,40 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
                     }}
                     onDragOver={(e) => {
                       e.preventDefault();
-                      if (dragOverIndex !== idx) {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const after = x > rect.width / 2;
+                      
+                      if (dragOverIndex !== idx || isDropAfter !== after) {
                         setDragOverIndex(idx);
+                        setIsDropAfter(after);
                       }
+                    }}
+                    onDragLeave={() => {
+                      setDragOverIndex(null);
+                      setIsDropAfter(false);
                     }}
                     onDragEnd={() => {
                       setDraggedIndex(null);
                       setDragOverIndex(null);
+                      setIsDropAfter(false);
                     }}
                     onDrop={(e) => {
                       e.preventDefault();
                       const startIdx = parseInt(e.dataTransfer.getData('text/plain'));
                       if (startIdx !== idx && !isNaN(startIdx)) {
-                        onReorderCells(startIdx, idx);
+                        let targetIdx = idx;
+                        if (isDropAfter) {
+                          targetIdx = startIdx < idx ? idx : idx + 1;
+                        } else {
+                          targetIdx = startIdx < idx ? idx - 1 : idx;
+                        }
+                        targetIdx = Math.max(0, Math.min(selectedCells.length - 1, targetIdx));
+                        onReorderCells(startIdx, targetIdx);
                       }
                       setDraggedIndex(null);
                       setDragOverIndex(null);
+                      setIsDropAfter(false);
                     }}
                     title="ドラッグしてパレットの順序を並び替え"
                   >
@@ -411,6 +428,16 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
                     >
                       {cell.color}
                     </div>
+
+                    {/* 左側の挿入インジケータ（光る縦線） */}
+                    {isCurrentlyDragOver && !isDropAfter && !isCurrentlyDragged && (
+                      <div className="absolute -left-[7px] top-0 bottom-0 w-1 bg-indigo-500 dark:bg-indigo-400 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.85)] z-20 animate-pulse pointer-events-none" />
+                    )}
+
+                    {/* 右側の挿入インジケータ（光る縦線） */}
+                    {isCurrentlyDragOver && isDropAfter && !isCurrentlyDragged && (
+                      <div className="absolute -right-[7px] top-0 bottom-0 w-1 bg-indigo-500 dark:bg-indigo-400 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.85)] z-20 animate-pulse pointer-events-none" />
+                    )}
 
                     {/* Hover Delete Button Overlay */}
                     <button
