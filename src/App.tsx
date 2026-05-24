@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Palette, Layers, ListOrdered, Sun, Moon, Trash2, CheckCircle2 } from 'lucide-react';
+import { Palette, Layers, ListOrdered, Sun, Moon, Trash2, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 import { OptionState, SelectedCell } from './types';
 import { SummaryDashboard } from './components/SummaryDashboard';
 import { PaletteDetailedGrid } from './components/PaletteDetailedGrid';
@@ -54,6 +54,9 @@ export default function App() {
 
   // Temporary feedback toast state
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Mobile Header Accordion toggle state
+  const [isHeaderExpanded, setIsHeaderExpanded] = useState<boolean>(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -169,29 +172,61 @@ export default function App() {
       )}
 
       {/* Upper Navigation Header */}
-      <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/50 py-5 px-6 sm:px-8 sticky top-0 z-40 shadow-xs transition-colors">
+      <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/50 py-3.5 md:py-5 px-4 sm:px-8 sticky top-0 z-40 shadow-xs transition-colors">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2" id="app-title">
-              <div className="p-1.5 bg-indigo-600 rounded-lg text-white">
-                <Palette className="w-5 h-5" />
-              </div>
-              <span>Sequential Palette Generator</span>
-              <span className="text-[10px] font-bold px-2.5 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 rounded-full border border-indigo-100/35 dark:border-indigo-900/30">
-                データビジュアリゼーション対応
-              </span>
-            </h1>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
-              離散シーケンシャルカラーパレット
-            </p>
+          
+          {/* Title and Mobile Toggle bar */}
+          <div 
+            className="flex items-center justify-between cursor-pointer md:cursor-default select-none"
+            onClick={() => {
+              if (window.innerWidth < 768) {
+                setIsHeaderExpanded(!isHeaderExpanded);
+              }
+            }}
+          >
+            <div>
+              <h1 className="text-[15px] md:text-lg font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2" id="app-title">
+                <div className="p-1.5 bg-indigo-600 rounded-lg text-white shrink-0">
+                  <Palette className="w-4 h-4 md:w-5 md:h-5" />
+                </div>
+                <span className="truncate">Sequential Palette Generator</span>
+                <span className="hidden sm:inline-block text-[10px] font-bold px-2.5 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 rounded-full border border-indigo-100/35 dark:border-indigo-900/30">
+                  データビジュアリゼーション対応
+                </span>
+              </h1>
+              <p className="text-[10px] md:text-xs text-slate-400 dark:text-slate-500 mt-0.5 font-medium">
+                離散シーケンシャルカラーパレット <span className="md:hidden text-indigo-500 dark:text-indigo-450 font-bold ml-1">{isHeaderExpanded ? '(タップで閉じる)' : '(タップで設定を展開)'}</span>
+              </p>
+            </div>
+
+            {/* Mobile Header Collapse/Expand Toggle button */}
+            <button 
+              className="md:hidden p-2 text-slate-500 hover:text-indigo-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs cursor-pointer flex items-center justify-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsHeaderExpanded(!isHeaderExpanded);
+              }}
+              title={isHeaderExpanded ? '設定パネルを閉じる' : '設定パネルを開く'}
+            >
+              {isHeaderExpanded ? (
+                <ChevronUp className="w-4.5 h-4.5 text-indigo-600 dark:text-indigo-400" />
+              ) : (
+                <ChevronDown className="w-4.5 h-4.5" />
+              )}
+            </button>
           </div>
 
-          {/* Core Settings and Mode Controls Flex Group */}
-          <div className="flex flex-wrap items-center gap-3 self-end md:self-auto">
+          {/* Core Settings and Mode Controls Flex Group (Collapsible Accordion on Mobile, static on Desktop) */}
+          <div className={`transition-all duration-300 ease-in-out md:flex flex-wrap items-center gap-3 self-end md:self-auto w-full md:w-auto
+            ${isHeaderExpanded 
+              ? 'flex opacity-100 mt-2 max-h-[500px]' 
+              : 'hidden md:flex opacity-0 md:opacity-100 max-h-0 md:max-h-[500px] overflow-hidden md:overflow-visible'
+            }`}
+          >
             {/* Core Applet Configurations */}
-            <div className="flex flex-wrap items-center gap-5 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 transition-colors">
+            <div className="flex flex-wrap items-center gap-5 bg-slate-50 dark:bg-slate-900/50 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 transition-colors w-full md:w-auto">
               {/* Palette size Selector */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 w-full sm:w-auto">
                 <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider flex items-center gap-1.5 select-none">
                   <Layers className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />
                   表示パレット数 ({currentOptionsCount}/10)
@@ -242,7 +277,7 @@ export default function App() {
             </div>
 
             {/* Quick Actions (Reset Cache & Theme toggle) */}
-            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/50 p-2 rounded-2xl border border-slate-100 dark:border-slate-800 transition-colors">
+            <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/50 p-2 rounded-2xl border border-slate-100 dark:border-slate-800 transition-colors w-full md:w-auto justify-end">
               
               {/* Reset Session Cache Database */}
               <button
@@ -269,6 +304,7 @@ export default function App() {
               </button>
             </div>
           </div>
+
         </div>
       </header>
 
