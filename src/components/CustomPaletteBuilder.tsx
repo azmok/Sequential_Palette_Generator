@@ -340,11 +340,10 @@ export const CustomPaletteBuilder: React.FC<CustomPaletteBuilderProps> = ({
             </div>
           </div>
 
-          {/* Selected Colors horizontal preview strip */}
+          {/* Selected Colors wrap-preview strip */}
           <div 
-            className="flex items-center gap-3 overflow-x-auto py-2.5 px-1 scrollbar-thin scrollbar-thumb-slate-255 dark:scrollbar-thumb-slate-800"
-            style={{ WebkitOverflowScrolling: 'touch' }}
-            onMouseDown={(e) => e.stopPropagation()} // 横スクロールやチップ操作でカードがドラッグするのを防止
+            className="flex flex-wrap items-center gap-3 pt-4 pb-3 px-2"
+            onMouseDown={(e) => e.stopPropagation()} // チップ操作でカードがドラッグするのを防止
           >
             <AnimatePresence initial={false}>
               {selectedCells.map((cell, idx) => {
